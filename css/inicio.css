@@ -1,0 +1,20 @@
+/* Tela inicial: escolha entre TV e controle */
+/* ---------- escolha de modo ---------- */
+#picker{min-height:100%;display:flex;flex-direction:column;justify-content:center;gap:28px;max-width:760px;margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:40px}
+#picker h1{font-family:var(--font-display);font-weight:900;font-size:clamp(44px,11vw,88px);line-height:.92;letter-spacing:.01em;text-transform:uppercase;margin:6px 0 0;text-wrap:balance}
+#picker h1 span{color:var(--work)}
+#picker .lead{color:var(--muted);max-width:56ch;margin:12px 0 0}
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.mode{display:flex;flex-direction:column;gap:10px;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;transition:border-color .15s,transform .15s}
+.mode:hover{border-color:var(--work);transform:translateY(-2px)}
+.mode .glyph{width:44px;height:44px;border-radius:10px;display:grid;place-items:center}
+.mode.tvm .glyph{background:var(--work)}
+.mode.ctm .glyph{background:var(--panel-2);border:1px solid var(--line)}
+.mode strong{font-family:var(--font-display);font-size:30px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;line-height:1}
+.mode span{color:var(--muted);font-size:14px}
+.how{display:grid;gap:8px;color:var(--muted);font-size:14px;border-top:1px solid var(--line);padding-top:18px;margin:0;padding-left:0;list-style:none;counter-reset:s}
+.how li{display:flex;gap:10px;counter-increment:s}
+.how li::before{content:counter(s);flex:none;width:22px;height:22px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-size:12px;color:var(--fg)}
+.values{margin:0;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.values b{color:var(--work);font-weight:600}

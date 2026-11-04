@@ -1,0 +1,61 @@
+/* Modo TV: cronômetro em tela cheia, painel de botões e QR code */
+/* ---------- TV ---------- */
+#tv{position:fixed;inset:0;--pbg:var(--ink);--pfg:var(--fg);background:var(--pbg);color:var(--pfg);
+  display:grid;grid-template-rows:auto 1fr auto;transition:background-color .35s ease;overflow:hidden;
+  padding:calc(2.2vh + env(safe-area-inset-top,0px)) calc(3vw + env(safe-area-inset-right,0px)) calc(2.2vh + env(safe-area-inset-bottom,0px)) calc(3vw + env(safe-area-inset-left,0px))}
+#tv[data-phase="work"]{--pbg:var(--work)}
+#tv[data-phase="rest"]{--pbg:var(--rest);--pfg:var(--on-rest)}
+#tv[data-phase="prep"]{--pbg:var(--prep)}
+#tv[data-phase="prep"] .tv-time{color:var(--work)}
+#tv[data-phase="done"]{--pbg:var(--done)}
+#tv.warn{box-shadow:inset 0 0 0 1.4vmin var(--fg)}
+.tv-top{display:flex;justify-content:space-between;align-items:flex-start;gap:2vw}
+.tv-phase{font-family:var(--font-display);font-weight:900;text-transform:uppercase;font-size:min(9vw,13vh);line-height:.9;letter-spacing:.02em}
+.tv-round{font-family:var(--font-display);font-weight:700;text-transform:uppercase;font-size:min(4.2vw,6.5vh);letter-spacing:.03em;opacity:.85;margin-top:.6vh}
+.tv-side{display:flex;flex-direction:column;align-items:flex-end;gap:1.2vh}
+.tv-dots{display:flex;gap:.8vw}
+.tv-dots i{width:min(2.2vw,3.4vh);height:min(2.2vw,3.4vh);border-radius:50%;border:max(2px,.35vmin) solid currentColor;opacity:.55}
+.tv-dots i.on{background:currentColor;opacity:.9}
+.tv-dots i.cur{opacity:1;box-shadow:0 0 0 max(2px,.35vmin) currentColor}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:min(1.6vw,2.6vh);font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:.5em .9em;border-radius:999px;background:rgb(0 0 0 / .28);color:var(--fg)}
+.pill b{width:.6em;height:.6em;border-radius:50%;background:var(--muted)}
+.pill.ok b{background:#3ddc84}
+.tv-center{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:0}
+.tv-time{font-family:var(--font-display);font-weight:900;line-height:.82;font-size:min(36vw,60vh);letter-spacing:0;white-space:nowrap;transition:opacity .2s}
+.dg{display:inline-block;width:.54em;text-align:center}
+.dg.c{width:.26em}
+#tv.paused .tv-time{opacity:.4}
+.tv-flag{font-family:var(--font-display);font-weight:900;text-transform:uppercase;font-size:min(5vw,8vh);letter-spacing:.08em;line-height:1;margin-top:1vh;min-height:1em}
+#tv.paused .tv-flag{animation:blink 1.2s steps(2,start) infinite}
+#tv.warn .tv-flag{color:var(--fg)}
+@keyframes blink{to{visibility:hidden}}
+.tv-bottom{display:grid;gap:1.4vh}
+.tv-next{font-size:min(2.4vw,3.8vh);font-weight:600;opacity:.85}
+.tv-bar{height:max(6px,1.1vh);border-radius:99px;background:rgb(0 0 0 / .25);overflow:hidden}
+#tv[data-phase="idle"] .tv-bar{background:var(--panel-2)}
+.tv-bar i{display:block;height:100%;width:0;background:currentColor;opacity:.9;border-radius:inherit}
+#tv.has-code .tv-time{font-size:min(30vw,40vh)}
+.dock{position:absolute;left:50%;bottom:calc(7vh + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:flex;flex-wrap:wrap;justify-content:center;gap:8px;
+  background:rgb(13 13 13 / .9);border:1px solid var(--line);border-radius:16px;padding:10px;max-width:calc(100vw - 32px);transition:opacity .25s,transform .25s;color:var(--fg)}
+.dock.hide{opacity:0;pointer-events:none;transform:translate(-50%,12px)}
+.dock button{background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:10px 16px;font-weight:600;font-size:15px}
+.dock button.primary{background:var(--work);color:#fff;border-color:var(--work);min-width:120px}
+.sheet{position:absolute;inset:0;background:rgb(0 0 0 / .7);display:grid;place-items:center;padding:16px;color:var(--fg)}
+.sheet-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;width:min(640px,100%);max-height:100%;overflow:auto;padding:22px;display:grid;gap:18px}
+.sheet-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.sheet-head h2{margin:0;font-family:var(--font-display);text-transform:uppercase;font-size:30px;letter-spacing:.02em}
+
+/* ---------- código e QR da TV ---------- */
+.tv-code{display:flex;align-items:center;gap:1.4vw;background:var(--ink);color:var(--fg);border-radius:1.4vmin;padding:1.2vmin;border:1px solid var(--line)}
+.tv-qr{width:min(15vw,24vh);aspect-ratio:1;background:#fff;border-radius:.8vmin;padding:.8vmin;display:grid;place-items:center}
+.tv-qr img,.tv-qr canvas{width:100%!important;height:auto!important;display:block}
+.tv-code-txt{display:grid;gap:.4vh;padding-right:1vw}
+.tv-code-txt .eyebrow{font-size:min(1.4vw,2.2vh)}
+.tv-code-txt strong{font-family:var(--font-display);font-weight:900;font-size:min(6vw,9vh);letter-spacing:.12em;line-height:.9}
+.tv-code-txt span.s{font-size:min(1.5vw,2.4vh);color:var(--muted);max-width:18ch}
+.tv-id{display:flex;align-items:center;gap:2vw}
+.tv-id .logo{width:min(9vw,15vh);flex:none}
+.tv-id>div{min-width:0}
+.tv-round{white-space:nowrap}
+#tv[data-phase="rest"] .pill,#tv[data-phase="rest"] .tv-code{background:var(--ink);color:var(--fg)}
+.tv-qr-aviso{font-size:12px;color:var(--ink);text-align:center;line-height:1.3}

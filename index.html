@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0D0D0D">
+  <title>Cronômetro Norte BJJ</title>
+  <link rel="icon" href="assets/img/logo-norte.svg" type="image/svg+xml">
+
+  <!-- Fontes da identidade Norte BJJ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&display=swap">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/inicio.css">
+  <link rel="stylesheet" href="css/tv.css">
+  <link rel="stylesheet" href="css/ajustes.css">
+  <link rel="stylesheet" href="css/controle.css">
+
+  <!-- Bibliotecas: conexão TV-celular (PeerJS) e QR code -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.4/peerjs.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <!-- Aplicação -->
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+
+<!-- ===== Tela inicial ===== -->
+<section id="picker" hidden>
+  <div>
+    <div class="brand"><img class="logo " src="assets/img/logo-norte.svg" alt="Norte BJJ" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='https://nortebjj.com/assets/images/brand/logotipo-norte-bjj-preto-svg.svg'}else{this.hidden=true}"><div class="eyebrow">Norte BJJ<b>Cronômetro de rola</b></div></div>
+    <h1>Na direção <span>do tempo certo</span></h1>
+    <p class="lead">A TV mostra o tempo grande, com a cor da fase: vermelho na luta, branco no descanso, grafite na preparação. O celular vira o controle remoto.</p>
+  </div>
+  <div class="modes">
+    <button class="mode tvm" id="pickTv" type="button">
+      <div class="glyph"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><rect x="2.5" y="4" width="19" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+      <strong>Esta tela é a TV</strong>
+      <span>Abra na TV, no notebook ligado no HDMI ou no Chromecast. Também funciona sozinha, com o teclado.</span>
+    </button>
+    <button class="mode ctm" id="pickCtrl" type="button">
+      <div class="glyph"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M11 18h2"/></svg></div>
+      <strong>Este celular é o controle</strong>
+      <span>Inicia, pausa, pula fase e muda o tempo dos rounds sem sair do tatame.</span>
+    </button>
+  </div>
+  <ol class="how">
+    <li>Abra este site na TV e escolha "Esta tela é a TV". Toque uma vez na tela para liberar o som.</li>
+    <li>A TV mostra um código de 4 letras e um QR code. Aponte a câmera do celular para o QR code.</li>
+    <li>O celular abre o controle já conectado. Se preferir, escolha "Este celular é o controle" e digite o código.</li>
+  </ol>
+  <p class="values">Honra <b>•</b> Respeito <b>•</b> Determinação <b>•</b> Disciplina <b>•</b> Foco</p>
+</section>
+
+<!-- ===== Modo TV ===== -->
+<section id="tv" data-phase="idle" hidden>
+  <div class="tv-top">
+    <div class="tv-id">
+      <img class="logo " src="assets/img/logo-norte.svg" alt="Norte BJJ" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='https://nortebjj.com/assets/images/brand/logotipo-norte-bjj-preto-svg.svg'}else{this.hidden=true}">
+      <div>
+        <div class="tv-phase" id="tvPhase">Pronto</div>
+        <div class="tv-round" id="tvRound"></div>
+      </div>
+    </div>
+    <div class="tv-side">
+      <div class="tv-dots" id="tvDots"></div>
+      <span class="pill" id="tvSound" hidden>Toque na tela para ligar o som</span>
+      <span class="pill" id="tvLink"><b></b><span>Conectando…</span></span>
+      <div class="tv-code" id="tvCodeCard" hidden>
+        <div class="tv-qr" id="tvQr"></div>
+        <div class="tv-code-txt"><span class="eyebrow">Código do controle</span><strong id="tvCodeTxt">····</strong><span class="s">Aponte a câmera do celular para o QR code</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="tv-center">
+    <div class="tv-time" id="tvTime" aria-live="off"></div>
+    <div class="tv-flag" id="tvFlag"></div>
+  </div>
+  <div class="tv-bottom">
+    <div class="tv-next" id="tvNext"></div>
+    <div class="tv-bar"><i id="tvBar"></i></div>
+  </div>
+  <div class="dock" id="dock">
+    <button type="button" class="primary" id="dToggle">Iniciar</button>
+    <button type="button" id="dReset">Zerar</button>
+    <button type="button" id="dSkip">Pular fase</button>
+    <button type="button" id="dCfg">Ajustes</button>
+    <button type="button" id="dMute">Som: ligado</button>
+    <button type="button" id="dCode">Novo código</button>
+    <button type="button" id="dFull">Tela cheia</button>
+    <button type="button" id="dExit">Trocar modo</button>
+  </div>
+  <div class="sheet" id="tvSheet" hidden>
+    <div class="sheet-card" role="dialog" aria-label="Ajustes do treino">
+      <div class="sheet-head"><h2>Ajustes do treino</h2><button type="button" class="linkbtn" id="sheetClose">Fechar</button></div>
+      <div class="cfg" id="tvCfg"></div>
+      <button type="button" class="apply" id="tvApply">Aplicar e zerar</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Modo controle (celular) ===== -->
+<section id="ctrl" hidden>
+  <div class="c-top">
+    <div class="brand"><img class="logo " src="assets/img/logo-norte.svg" alt="Norte BJJ" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='https://nortebjj.com/assets/images/brand/logotipo-norte-bjj-preto-svg.svg'}else{this.hidden=true}"><h1>Controle</h1></div>
+    <span class="c-status" id="cStatus"><b></b><span>Conectando…</span></span>
+  </div>
+  <div class="empty" id="cEmpty" hidden></div>
+  <form class="card join" id="cJoin" hidden novalidate>
+    <h2>Conectar na TV</h2>
+    <label class="note" for="cCodeIn">Digite o código de 4 letras que aparece no canto da TV.</label>
+    <div class="join-row">
+      <input id="cCodeIn" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="4" placeholder="ABCD">
+      <button type="submit">Conectar</button>
+    </div>
+  </form>
+  <div class="mirror" id="mirror" data-phase="idle">
+    <div class="m-head"><span class="m-phase" id="mPhase">Pronto</span><span class="m-round" id="mRound"></span></div>
+    <div class="m-time" id="mTime"></div>
+    <div class="m-flag" id="mFlag"></div>
+    <div class="m-bar"><i id="mBar"></i></div>
+  </div>
+  <button type="button" class="big" id="cToggle">Iniciar</button>
+  <div class="row2">
+    <button type="button" class="sec" id="cReset">Zerar</button>
+    <button type="button" class="sec" id="cSkip">Pular fase</button>
+  </div>
+  <div class="card">
+    <h2>Ajustes do treino</h2>
+    <div class="cfg" id="cCfg"></div>
+    <button type="button" class="apply" id="cApply">Enviar para a TV</button>
+    <p class="note">Enviar novos ajustes zera o cronômetro na TV.</p>
+  </div>
+  <div class="row2"><button type="button" class="linkbtn" id="cOther">Conectar em outra TV</button><button type="button" class="linkbtn" id="cExit">Trocar modo</button></div>
+</section>
+
+<div class="toast" id="toast" hidden></div>
+
+</body>
+</html>

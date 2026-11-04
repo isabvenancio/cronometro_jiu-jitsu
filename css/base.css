@@ -1,0 +1,44 @@
+/* Base: tokens da identidade Norte BJJ, reset, tipografia, marca e utilitários */
+:root{
+  /* Identidade Norte BJJ (nortebjj.com): preto, grafite, vermelho; Anton nos títulos, Inter no texto */
+  --ink:#0D0D0D;
+  --panel:#111111;
+  --panel-2:#1D1D1B;
+  --line:rgba(255,255,255,.1);
+  --fg:#FFFFFF;
+  --text:#E5E7EB;
+  --muted:#8E949F;
+  --work:#C1121F;
+  --red-dark:#A4161A;
+  --rest:#F2F2F0;
+  --on-rest:#0D0D0D;
+  --prep:#1D1D1B;
+  --done:#111111;
+  --amber:#E8A33D;
+  --font-display:"Anton", Impact, "Arial Narrow", sans-serif;
+  --font-body:"Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html,body{height:100%}
+body{margin:0;-webkit-text-size-adjust:100%}
+img,canvas{max-width:100%}
+body{background:var(--ink);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.45}
+button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
+button:disabled{cursor:not-allowed;opacity:.4}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+/* ---------- logo e marca ---------- */
+.tv-phase,.tv-round,.tv-time,.tv-flag,.tv-code-txt strong,#picker h1,.mode strong,.sheet-head h2,.c-top h1,.m-phase,.m-time,.big,.card h2,.join input,.dock button.primary{font-weight:400!important}
+.tv-round,.mode strong,.sheet-head h2,.c-top h1,.card h2,.big{letter-spacing:.04em}
+.logo{display:block;height:auto;aspect-ratio:897/846}
+.brand{display:flex;align-items:center;gap:12px}
+.brand .logo{width:56px}
+.brand .eyebrow{color:var(--text)}
+.brand .eyebrow b{display:block;color:var(--muted);font-weight:500;letter-spacing:.14em}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--ink);font-weight:600;padding:10px 16px;border-radius:10px;max-width:calc(100vw - 32px);font-size:14px;z-index:20}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}

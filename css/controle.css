@@ -1,0 +1,43 @@
+/* Modo controle: celular */
+/* ---------- controle ---------- */
+#ctrl{max-width:540px;margin:0 auto;display:grid;gap:16px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 40px}
+.c-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.c-top h1{margin:0;font-family:var(--font-display);text-transform:uppercase;font-size:28px;letter-spacing:.02em;line-height:1}
+.c-status{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:6px 11px;border-radius:99px;background:var(--panel);border:1px solid var(--line)}
+.c-status b{width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.c-status.ok b{background:#3ddc84}
+.c-status.warn b{background:var(--amber)}
+.linkbtn{background:none;border:0;color:var(--muted);font-size:13px;text-decoration:underline;padding:4px}
+.mirror{--pbg:var(--panel);--pfg:var(--fg);background:var(--pbg);color:var(--pfg);border-radius:18px;padding:18px 18px 16px;display:grid;gap:6px;transition:background-color .3s;border:1px solid var(--line)}
+.mirror[data-phase="work"]{--pbg:var(--work);border-color:transparent}
+.mirror[data-phase="rest"]{--pbg:var(--rest);--pfg:var(--on-rest);border-color:transparent}
+.mirror[data-phase="prep"]{--pbg:var(--prep)}
+.mirror[data-phase="prep"] .m-time{color:var(--work)}
+.mirror[data-phase="done"]{--pbg:var(--done);border-color:transparent}
+.mirror.warn{box-shadow:inset 0 0 0 4px var(--fg)}
+.m-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.m-phase{font-family:var(--font-display);font-weight:900;font-size:30px;text-transform:uppercase;letter-spacing:.03em;line-height:1}
+.m-round{font-weight:600;font-size:14px;opacity:.85}
+.m-time{font-family:var(--font-display);font-weight:900;font-size:min(30vw,150px);line-height:.85;text-align:center;white-space:nowrap}
+.mirror.paused .m-time{opacity:.45}
+.m-flag{text-align:center;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:13px;min-height:1.2em}
+.m-bar{height:6px;border-radius:99px;background:rgb(0 0 0 / .25);overflow:hidden}
+.m-bar i{display:block;height:100%;width:0;background:currentColor;border-radius:inherit}
+.big{width:100%;min-height:76px;border-radius:12px;border:0;background:var(--work);color:#fff;font-family:var(--font-display);font-weight:900;font-size:34px;text-transform:uppercase;letter-spacing:.04em}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sec{min-height:56px;border-radius:14px;border:1px solid var(--line);background:var(--panel);font-weight:600;font-size:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;display:grid;gap:16px}
+.card h2{margin:0;font-family:var(--font-display);text-transform:uppercase;font-size:24px;letter-spacing:.02em}
+.apply{min-height:52px;border-radius:12px;border:0;background:var(--fg);color:var(--ink);font-weight:700;font-size:16px}
+.note{font-size:13px;color:var(--muted);margin:0}
+.empty{background:var(--panel);border:1px dashed var(--line);border-radius:14px;padding:16px;font-size:14px;color:var(--muted)}
+.empty strong{color:var(--fg)}
+
+/* ---------- entrada do código no celular ---------- */
+.join{display:grid;gap:10px}
+.join-row{display:flex;gap:8px}
+.join input{flex:1;min-width:0;background:var(--panel-2);border:1px solid var(--line);border-radius:12px;color:var(--fg);font-family:var(--font-display);font-weight:900;font-size:34px;letter-spacing:.3em;text-transform:uppercase;text-align:center;padding:10px 8px}
+.join input:focus-visible{outline:3px solid var(--fg);outline-offset:1px}
+.join button{border:0;border-radius:12px;background:var(--work);color:#fff;font-weight:700;font-size:16px;padding:0 20px}
+.c-top .brand .logo{width:40px}
