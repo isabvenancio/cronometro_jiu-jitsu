@@ -5,7 +5,12 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#0D0D0D">
   <title>Cronômetro Norte BJJ</title>
-  <link rel="icon" href="assets/img/logo-norte.svg" type="image/svg+xml">
+  <!-- Ícones (favicon, iPhone, Android) -->
+  <link rel="icon" href="assets/icons/favicon.ico" sizes="48x48">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="apple-mobile-web-app-title" content="Norte Timer">
 
   <!-- Fontes da identidade Norte BJJ -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,7 +36,7 @@
 <!-- ===== Tela inicial ===== -->
 <section id="picker" hidden>
   <div>
-    <div class="brand"><img class="logo " src="assets/img/logo-norte.svg" alt="Norte BJJ" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='https://nortebjj.com/assets/images/brand/logotipo-norte-bjj-preto-svg.svg'}else{this.hidden=true}"><div class="eyebrow">Norte BJJ<b>Cronômetro de rola</b></div></div>
+    <div class="brand"><img class="logo " src="assets/img/logo-norte.svg" alt="Norte BJJ" onerror="this.hidden=true"><div class="eyebrow">Norte BJJ<b>Cronômetro de rola</b></div></div>
     <h1>Na direção <span>do tempo certo</span></h1>
     <p class="lead">A TV mostra o tempo grande, com a cor da fase: vermelho na luta, branco no descanso, grafite na preparação. O celular vira o controle remoto.</p>
   </div>
@@ -59,7 +64,7 @@
 <section id="tv" data-phase="idle" hidden>
   <div class="tv-top">
     <div class="tv-id">
-      <img class="logo " src="assets/img/logo-norte.svg" alt="Norte BJJ" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='https://nortebjj.com/assets/images/brand/logotipo-norte-bjj-preto-svg.svg'}else{this.hidden=true}">
+      <img class="logo " src="assets/img/logo-norte.svg" alt="Norte BJJ" onerror="this.hidden=true">
       <div>
         <div class="tv-phase" id="tvPhase">Pronto</div>
         <div class="tv-round" id="tvRound"></div>
@@ -105,7 +110,7 @@
 <!-- ===== Modo controle (celular) ===== -->
 <section id="ctrl" hidden>
   <div class="c-top">
-    <div class="brand"><img class="logo " src="assets/img/logo-norte.svg" alt="Norte BJJ" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='https://nortebjj.com/assets/images/brand/logotipo-norte-bjj-preto-svg.svg'}else{this.hidden=true}"><h1>Controle</h1></div>
+    <div class="brand"><img class="logo " src="assets/img/logo-norte.svg" alt="Norte BJJ" onerror="this.hidden=true"><h1>Controle</h1></div>
     <span class="c-status" id="cStatus"><b></b><span>Conectando…</span></span>
   </div>
   <div class="empty" id="cEmpty" hidden></div>
